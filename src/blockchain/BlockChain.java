@@ -31,7 +31,7 @@ public class BlockChain {
 		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
-		for(int i=0;i<5;i+=1){
+		for(int i=0;i<255;i+=1){
 			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain/chain.jsp";
 			
 			System.out.println(sThisURL);
@@ -85,7 +85,7 @@ public class BlockChain {
 		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
-		for(int i=0;i<5;i+=1){
+		for(int i=0;i<255;i+=1){
 			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain/chain.jsp";
 			
 			System.out.println(sThisURL);
