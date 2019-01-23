@@ -72,7 +72,7 @@ function InitData(){
 	}
 	
 	
-	xmlhttp.open("GET","/blockchain/init.jsp?t="+new Date().getTime(),true);
+	xmlhttp.open("GET","/blockchain-Idiom-Solitaire/init.jsp?t="+new Date().getTime(),true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send();
 	
@@ -116,7 +116,7 @@ function CheckData(){
 	}
 	
 	
-	xmlhttp.open("GET","/blockchain/check.jsp?t="+new Date().getTime(),true);
+	xmlhttp.open("GET","/blockchain-Idiom-Solitaire/check.jsp?t="+new Date().getTime(),true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send();
 	
@@ -206,7 +206,7 @@ if(request.getParameter("answer")!=null){
 %>
 
 <h1>
-欢迎使用区块链成语接龙。 &nbsp;&nbsp;<a href="/blockchain/detail.jsp">刷新</a></a><br>
+欢迎使用区块链成语接龙。 &nbsp;&nbsp;<a href="/blockchain-Idiom-Solitaire/detail.jsp">刷新</a></a><br>
 </h1>
 <%
 blockchain.BlockChain.LoadData();
@@ -246,7 +246,7 @@ if(blockchain.BlockChain.lBlockchain.size()>3){
 %>
 当前等待接龙的成语是：<%= sProofs %><br>
 <br>
-<form id="subform" action="/blockchain/detail.jsp" method="post" onsubmit="return checkinput(this);">
+<form id="subform" action="/blockchain-Idiom-Solitaire/detail.jsp" method="post" onsubmit="return checkinput(this);">
 	<input type="hidden" name="isLoading" id="isLoading" value="no">
 	<input type="hidden" name="isLoading" id="subdirect" value="no">
 	请输入“<%=blockchain.BlockChain.lBlockchain.get(blockchain.BlockChain.lBlockchain.size()-1).sProof %>”的接龙：<input type="text" id="answer" name="answer">&nbsp;<input type="submit" id="subbtn" value="确定">&nbsp;<lable id="linfo"></lable>

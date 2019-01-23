@@ -32,17 +32,19 @@ public class BlockChain {
 		int iLastLen=0;
 		String sLastChain="";
 		for(int i=0;i<255;i+=1){
-			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain/chain.jsp";
+			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain-Idiom-Solitaire/chain.jsp";
 			
 			System.out.println(sThisURL);
 			
 			String sChain=httpRequest(sThisURL);
 			
 			if(sChain!=""){
-				System.out.println(sChain);
+				System.out.println("开始******************发现区块链**************************************");
+				System.out.println(sThisURL+"$$$$$$区块链地址>>>>>>>数据$$$$$"+sChain);
+				System.out.println("结束******************发现区块链**************************************");
 				String sTemp[]=sChain.split("##");
 				if(sTemp.length>iLastLen){
-					iLastLen=sTemp.length;
+					iLastLen=sTemp.length
 					sLastChain=sChain;
 				}
 			}
@@ -86,14 +88,16 @@ public class BlockChain {
 		int iLastLen=0;
 		String sLastChain="";
 		for(int i=0;i<255;i+=1){
-			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain/chain.jsp";
+			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain-Idiom-Solitaire/chain.jsp";
 			
 			System.out.println(sThisURL);
 			
 			String sChain=httpRequest(sThisURL);
 			
 			if(sChain!=""){
-				System.out.println(sChain);
+				System.out.println("开始******************发现区块链**************************************");
+				System.out.println(sThisURL+"$$$$$$区块链地址>>>>>>>数据$$$$$"+sChain);
+				System.out.println("结束******************发现区块链**************************************");
 				String sTemp[]=sChain.split("##");
 				if(sTemp.length>iLastLen){
 					iLastLen=sTemp.length;

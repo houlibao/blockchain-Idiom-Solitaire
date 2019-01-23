@@ -58,7 +58,7 @@ function InitData(){
 	}
 	
 	
-	xmlhttp.open("GET","/blockchain/init.jsp?t="+new Date().getTime(),true);
+	xmlhttp.open("GET","/blockchain-Idiom-Solitaire/init.jsp?t="+new Date().getTime(),true);
 	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 	xmlhttp.send();
 	
@@ -94,7 +94,7 @@ function checkinput(obj){
 <div id="myclock"></div>
 
 <br>
-<form action="/blockchain/detail.jsp" method="post" onsubmit="return checkinput(this);">
+<form action="/blockchain-Idiom-Solitaire/detail.jsp" method="post" onsubmit="return checkinput(this);">
 	<input type="hidden" name="isLoading" id="isLoading" value="yes">
 	你的手机号码：<input type="text" name="mobile">&nbsp;<input type="submit" id="subbtn" value="开始游戏" disabled="disabled">
 </form>
