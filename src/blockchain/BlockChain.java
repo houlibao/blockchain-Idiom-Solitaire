@@ -21,6 +21,7 @@ public class BlockChain {
 	
 	static final String  sIPPre="192.168.1.";                 //对局域网内的电脑进行扫描，找到最长的链，下载到本地
 	static final String  sDataFileDir="d://blockchain";     //本地存储路径
+	static final String  port="8888";     //项目端口
 	
 	//共识算法
 	//返回 true 表示当前节点工作可以被认可
@@ -31,7 +32,7 @@ public class BlockChain {
 		int iLastLen=0;
 		String sLastChain="";
 		for(int i=0;i<255;i+=1){
-			String sThisURL="http://"+sIPPre+i+":8080/blockchain/chain.jsp";
+			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain/chain.jsp";
 			
 			System.out.println(sThisURL);
 			
