@@ -7,7 +7,7 @@ public class Block {
 	public int iIndex;              //索引
 	public String sProof;           //工作量证明，在这个例子里面，其实就是一个经过验证的正确的成语
 	public String sPreviousHash;    //前一个区块的Hash值
-	public Timestamp tsCreateTime;  //区块创建时间戳
+	public String tsCreateTime;  //区块创建时间戳
 	
 	
 	/*数据块
@@ -22,7 +22,7 @@ public class Block {
 	public final int iMoneyWin=2;    //赢取奖励，数额固定
 	
 	
-	public Block(int index,String proof,String hash,Timestamp createtime,String sender,String recipient){
+	public Block(int index,String proof,String hash,String createtime,String sender,String recipient){
 		iIndex=index;
 		sProof=proof;
 		sPreviousHash=hash;

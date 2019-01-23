@@ -188,7 +188,7 @@ if(request.getParameter("answer")!=null){
 		String sHash=blockchain.BlockChain.Hash(bPre);
 		
 		//创建新块
-		blockchain.Block bCur=blockchain.BlockChain.NewBlock(bPre.iIndex+1, sCur, sHash, new java.sql.Timestamp(System.currentTimeMillis()), bPre.sRecipient, (String)session.getAttribute("mobile"));
+		blockchain.Block bCur=blockchain.BlockChain.NewBlock(bPre.iIndex+1, sCur, sHash, new java.sql.Timestamp(System.currentTimeMillis()).toString(), bPre.sRecipient, (String)session.getAttribute("mobile"));
 		
 		//加入区块链并保存到本地文件
 		blockchain.BlockChain.lBlockchain.add(bCur);

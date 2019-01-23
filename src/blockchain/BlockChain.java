@@ -31,7 +31,7 @@ public class BlockChain {
 		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
-		for(int i=0;i<255;i+=1){
+		for(int i=0;i<5;i+=1){
 			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain/chain.jsp";
 			
 			System.out.println(sThisURL);
@@ -85,8 +85,8 @@ public class BlockChain {
 		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
-		for(int i=0;i<255;i+=1){
-			String sThisURL="http://"+sIPPre+i+":8080/blockchain/chain.jsp";
+		for(int i=0;i<5;i+=1){
+			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain/chain.jsp";
 			
 			System.out.println(sThisURL);
 			
@@ -127,9 +127,11 @@ public class BlockChain {
                 reader=new BufferedReader(new FileReader(file));  
                 while((temp=reader.readLine())!=null){                  	
                 	String [] sInfo=temp.split("#");
-                	//System.out.println(sInfo[5]);
+                	if (sInfo.length < 5) {
+						continue;
+					}
                 	Timestamp tThis=new Timestamp((new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse(sInfo[3]).getTime());
-                	Block bThis = BlockChain.NewBlock(Integer.parseInt(sInfo[0]), sInfo[1], (sInfo[2].equals("*")?"":sInfo[2]), tThis, (sInfo[4].equals("*")?"":sInfo[4]), (sInfo[5].equals("*")?"":sInfo[5]));
+                	Block bThis = BlockChain.NewBlock(Integer.parseInt(sInfo[0]), sInfo[1], (sInfo[2].equals("*")?"":sInfo[2]), tThis.toString(), (sInfo[4].equals("*")?"":sInfo[4]), (sInfo[5].equals("*")?"":sInfo[5]));
                 	BlockChain.lBlockchain.add(bThis);
                 }  
         }  
@@ -181,7 +183,7 @@ public class BlockChain {
 	}
 	
 	//创建新块
-	public static Block NewBlock(int index,String proof,String hash,Timestamp createtime,String sender,String recipient){
+	public static Block NewBlock(int index,String proof,String hash,String createtime,String sender,String recipient){
 		Block bRet=null;
 		
 		//在这里创建一个新块
@@ -194,8 +196,8 @@ public class BlockChain {
 	//逻辑上来说，只有在区块链产品的第一个用户第一次启动的时候，才会需要创建创世块
 	public static Block CreateFirstBlock(){
 		try{
-			Timestamp t=new Timestamp((new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-01-01 01:01:01").getTime());
-			return NewBlock(0,"海阔天空","",t,"","");
+			Timestamp t=new Timestamp((new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2019-01-01 01:01:01").getTime());
+			return NewBlock(0,"一飞冲天","",t.toString(),"","");
 		}catch(Exception e){
 			return null;
 		}
@@ -254,7 +256,7 @@ public class BlockChain {
 		//验证是否是成语
 		//http://chengyu.t086.com/chaxun.php?q=%B9%E2%C3%F7%D5%FD%B4%F3&t=ChengYu
 		String content=httpRequest("http://chengyu.t086.com/chaxun.php?q="+cur+"&t=ChengYu");
-		if(content=="" || content.indexOf("没有找到与您搜索相关的成语")!=-1 || content.indexOf("搜索词太长")!=-1){
+		if(content=="" || content.indexOf("没有找到与您搜索相关的成语")!=-1){
 			return false;
 		}
 		
