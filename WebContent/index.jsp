@@ -13,7 +13,7 @@ function disptime(){
  var mm = today.getMinutes();
  var ss = today.getSeconds();
  /*设置div的内容为当前时间*/
- document.getElementById("myclock").innerHTML="现在时间:"+hh+":"+mm+":"+ss;
+ document.getElementById("myclock").innerHTML="现在时间:"+today;
 /*
   使用setTimeout在函数disptime()体内再次调用setTimeout
   设置定时器每隔1秒（1000毫秒），调用函数disptime()执行，刷新时钟显示
@@ -27,7 +27,7 @@ function disptimes(){
 	 var mm = today.getMinutes();
 	 var ss = today.getSeconds();
 	 /*设置div的内容为当前时间*/
-	 document.getElementById("myclocks").innerHTML="开始时间:"+hh+":"+mm+":"+ss;
+	 document.getElementById("myclocks").innerHTML="开始时间:"+today;
 	}
 	
 function InitData(){

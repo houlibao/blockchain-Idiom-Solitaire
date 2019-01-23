@@ -10,13 +10,9 @@ import java.net.*;
 public class BlockChain {
 	public static List<Block> lBlockchain=new ArrayList<>();    //用来存储区块
 		
-	
-	
 	public BlockChain(){
 		//lBlockchain.add(null);
 	}
-	
-	
 	
 	static final ArrayList<String>  IPPre=NetworkInterfaceTool.getLocalIpPre();  //对局域网内的电脑进行扫描，找到最长的链，下载到本地
 	static final String  sDataFileDir="d://blockchain";     //本地存储路径

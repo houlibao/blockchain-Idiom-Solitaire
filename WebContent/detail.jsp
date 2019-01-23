@@ -16,7 +16,7 @@ function disptime(){
 	iReload+=1;
 	
 	
-	if(iReload>60*10 && document.getElementById("isLoading").value=="no"){ //10分钟，重新刷新一下区块链数据
+	if(iReload>60*3 && document.getElementById("isLoading").value=="no"){ //10分钟，重新刷新一下区块链数据
 		InitData();
 		iReload=0;
 	}
@@ -30,9 +30,9 @@ function disptime(){
 
 	 
 	 if(document.getElementById("isLoading").value=="no"){
-		 document.getElementById("myclock").innerHTML="现在时间:"+hh+":"+mm+":"+ss+"<br>本地区块链数据为最新。";
+		 document.getElementById("myclock").innerHTML="现在时间:"+today+"<br>本地区块链数据为最新。";
 	 }else{
-		 document.getElementById("myclock").innerHTML="现在时间:"+hh+":"+mm+":"+ss+"<br>正在检测和更新本地区块链数据。。。";
+		 document.getElementById("myclock").innerHTML="现在时间:"+today+"<br>正在检测和更新本地区块链数据。。。";
 	 }
 	 
 	/*
