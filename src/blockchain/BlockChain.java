@@ -2,7 +2,6 @@ package blockchain;
 
 
 import blockchain.Block;
-
 import java.sql.Timestamp;
 import java.util.*;
 import java.io.*;
@@ -19,7 +18,7 @@ public class BlockChain {
 	
 	
 	
-	static final String  sIPPre="192.168.1.";                 //对局域网内的电脑进行扫描，找到最长的链，下载到本地
+	static final ArrayList<String>  IPPre=NetworkInterfaceTool.getLocalIpPre();  //对局域网内的电脑进行扫描，找到最长的链，下载到本地
 	static final String  sDataFileDir="d://blockchain";     //本地存储路径
 	static final String  port="8888";     //项目端口
 	
@@ -31,24 +30,24 @@ public class BlockChain {
 		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
-		for(int i=0;i<255;i+=1){
-			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain-Idiom-Solitaire/chain.jsp";
-			
-			System.out.println(sThisURL);
-			
-			String sChain=httpRequest(sThisURL);
-			
-			if(sChain!=""){
-				System.out.println("开始******************发现区块链**************************************");
-				System.out.println(sThisURL+"$$$$$$区块链地址>>>>>>>数据$$$$$"+sChain);
-				System.out.println("结束******************发现区块链**************************************");
-				String sTemp[]=sChain.split("##");
-				if(sTemp.length>iLastLen){
-					iLastLen=sTemp.length
-					sLastChain=sChain;
+		for (String sIPPre : IPPre) {
+			for(int i=0;i<255;i+=1){
+				String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain-Idiom-Solitaire/chain.jsp";
+				System.out.println(sThisURL);
+				String sChain=httpRequest(sThisURL);
+				if(sChain!=""){
+					System.out.println("开始******************发现区块链**************************************");
+					System.out.println(sThisURL+"$$$$$$区块链地址>>>>>>>数据$$$$$"+sChain);
+					System.out.println("结束******************发现区块链**************************************");
+					String sTemp[]=sChain.split("##");
+					if(sTemp.length>iLastLen){
+						iLastLen=sTemp.length;
+						sLastChain=sChain;
+					}
 				}
 			}
 		}
+		
 		
 		BlockChain.LoadData();
 		try{
@@ -87,6 +86,7 @@ public class BlockChain {
 		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
+		for (String sIPPre : IPPre) {
 		for(int i=0;i<255;i+=1){
 			String sThisURL="http://"+sIPPre+i+":"+port+"/blockchain-Idiom-Solitaire/chain.jsp";
 			
@@ -96,8 +96,7 @@ public class BlockChain {
 			
 			if(sChain!=""){
 				System.out.println("开始******************发现区块链**************************************");
-				System.out.println(sThisURL+"$$$$$$区块链地址>>>>>>>数据$$$$$"+sChain);
-				System.out.println("结束******************发现区块链**************************************");
+				System.out.println(sThisURL+"$$$$$$区块链地址>>>>>>>数据$$$$$"+sChain);				System.out.println("结束******************发现区块链**************************************");
 				String sTemp[]=sChain.split("##");
 				if(sTemp.length>iLastLen){
 					iLastLen=sTemp.length;
@@ -105,6 +104,7 @@ public class BlockChain {
 				}
 			}
 		}
+	}
 		
 		try{
 			if(sLastChain!=""){
