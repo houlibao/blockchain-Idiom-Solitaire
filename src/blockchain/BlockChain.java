@@ -9,7 +9,7 @@ import java.io.*;
 import java.net.*;
 
 public class BlockChain {
-	public static List<Block> lBlockchain=new ArrayList<>();    //�����洢����
+	public static List<Block> lBlockchain=new ArrayList<>();    //用来存储区块
 		
 	
 	
@@ -19,15 +19,15 @@ public class BlockChain {
 	
 	
 	
-	static final String  sIPPre="192.168.1.";                 //�Ծ������ڵĵ��Խ���ɨ�裬�ҵ�����������ص�����
-	static final String  sDataFileDir="d://blockchain";     //���ش洢·��
+	static final String  sIPPre="192.168.1.";                 //对局域网内的电脑进行扫描，找到最长的链，下载到本地
+	static final String  sDataFileDir="d://blockchain";     //本地存储路径
 	
-	//��ʶ�㷨
-	//���� true ��ʾ��ǰ�ڵ㹤�����Ա��Ͽ�
+	//共识算法
+	//返回 true 表示当前节点工作可以被认可
 	public static boolean Unanimous(){
 		boolean bRet=true;
 		
-		//ɨ���ܱߵĽڵ㣬�ҵ�����������ص�����
+		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
 		for(int i=0;i<255;i+=1){
@@ -49,7 +49,7 @@ public class BlockChain {
 		
 		BlockChain.LoadData();
 		try{
-			//��������ڵ���ڳ��ȴ��ڱ��ؽ�3��+1�������򱾴Ρ��ڿ���Ч
+			//如果其它节点存在长度大于本地节3点+1的链，则本次“挖矿”无效
 			if(sLastChain!="" && iLastLen >= BlockChain.lBlockchain.size()+1){
 				bRet=false;
 				FileOutputStream out = new FileOutputStream(new File(sDataFileDir+"//data.txt"));
@@ -63,15 +63,15 @@ public class BlockChain {
 	}
 	
 	
-	//�������ȡ���������ݵ������ļ�
+	//从网络读取区块链数据到本地文件
 	public static void DowloadData(){
 
-		//��������ļ�Ŀ¼�������ھʹ���
+		//检查数据文件目录，不存在就创建
         File dirFile = new File(sDataFileDir);
         boolean bFile   = dirFile.exists();
 		if(!bFile ){
 			bFile = dirFile.mkdir();
-			//���´����ı����ļ�����дһ��������
+			//往新创建的本地文件里面写一个创世块
 			try{
 				FileOutputStream out = new FileOutputStream(new File(dirFile+"//data.txt"));
 				out.write((BlockChain.CreateFirstBlock().toInfoString()+"\r\n").getBytes());
@@ -81,7 +81,7 @@ public class BlockChain {
 		}
 		
 		
-		//ɨ���ܱߵĽڵ㣬�ҵ�����������ص�����
+		//扫描周边的节点，找到最长的链，下载到本地
 		int iLastLen=0;
 		String sLastChain="";
 		for(int i=0;i<255;i+=1){
@@ -115,7 +115,7 @@ public class BlockChain {
 		
 	}
 		
-	//���ļ���ȡ���������ڴ�
+	//从文件读取区块链到内存
 	public static void LoadData(){
 		BlockChain.lBlockchain.clear();
 		
@@ -147,7 +147,7 @@ public class BlockChain {
         }  		
 	}
 	
-	//�����������ڴ�д���ļ�
+	//把区块链从内存写到文件
 	public static void WriteData(){
 		
 		String sChain="";
@@ -179,33 +179,33 @@ public class BlockChain {
 		return sRet;
 	}
 	
-	//�����¿�
+	//创建新块
 	public static Block NewBlock(int index,String proof,String hash,Timestamp createtime,String sender,String recipient){
 		Block bRet=null;
 		
-		//�����ﴴ��һ���¿�
+		//在这里创建一个新块
 		bRet = new Block(index,proof,hash,createtime,sender,recipient);
 		
 		return bRet;
 	}
 	
-	//��ʼ��Ĵ�������������һ���飬�����ǹ̶�����Ϣ
-	//�߼�����˵��ֻ������������Ʒ�ĵ�һ���û���һ��������ʱ�򣬲Ż���Ҫ����������
+	//创始块的创建，创世块是一个块，必须是固定的信息
+	//逻辑上来说，只有在区块链产品的第一个用户第一次启动的时候，才会需要创建创世块
 	public static Block CreateFirstBlock(){
 		try{
 			Timestamp t=new Timestamp((new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).parse("2018-01-01 01:01:01").getTime());
-			return NewBlock(0,"�������","",t,"","");
+			return NewBlock(0,"海阔天空","",t,"","");
 		}catch(Exception e){
 			return null;
 		}
 	}
 	
 	
-	//Hash һ����
+	//Hash 一个块
 	public static String Hash(Block block){
 		String sHash=null;
 		
-		//������Hash һ����
+		//在这里Hash 一个块
 		String s=block.sPreviousHash+block.sProof+block.sRecipient+block.sSender+block.tsCreateTime.toString();
 		
 		sHash = MD5(s);
@@ -219,13 +219,13 @@ public class BlockChain {
         };
         try {
             byte[] btInput = key.getBytes();
-            // ���MD5ժҪ�㷨�� MessageDigest ����
+            // 获得MD5摘要算法的 MessageDigest 对象
             java.security.MessageDigest mdInst = java.security.MessageDigest.getInstance("MD5");
-            // ʹ��ָ�����ֽڸ���ժҪ
+            // 使用指定的字节更新摘要
             mdInst.update(btInput);
-            // �������
+            // 获得密文
             byte[] md = mdInst.digest();
-            // ������ת����ʮ�����Ƶ��ַ�����ʽ
+            // 把密文转换成十六进制的字符串形式
             int j = md.length;
             char str[] = new char[j * 2];
             int k = 0;
@@ -240,20 +240,20 @@ public class BlockChain {
         }
     }	
 	
-	//��֤��ǰ�ĳ����Ƿ���Ϲ���
-	//pre ǰһ������
-	//cur ��һ������
+	//验证当前的成语是否符合规则
+	//pre 前一个成语
+	//cur 这一个成语
 	public static boolean ValidProof(String pre,String cur){
 		
-		//��֤��������ͷһ�����ǲ�����һ����������һ����
+		//验证这个成语的头一个字是不是上一个成语的最后一个字
 		if(cur.charAt(0)!=pre.charAt(pre.length()-1)){
 			return false;
 		}
 		
-		//��֤�Ƿ��ǳ���
+		//验证是否是成语
 		//http://chengyu.t086.com/chaxun.php?q=%B9%E2%C3%F7%D5%FD%B4%F3&t=ChengYu
 		String content=httpRequest("http://chengyu.t086.com/chaxun.php?q="+cur+"&t=ChengYu");
-		if(content=="" || content.indexOf("û���ҵ�����������صĳ���")!=-1 || content.indexOf("������̫��")!=-1){
+		if(content=="" || content.indexOf("没有找到与您搜索相关的成语")!=-1 || content.indexOf("搜索词太长")!=-1){
 			return false;
 		}
 		
@@ -262,21 +262,21 @@ public class BlockChain {
 
 	
 	
-	//�������
+	//测试入口
 	public static void main(String[] args) {
-		System.out.println("�����������������...");
+		System.out.println("区块链成语接龙启动...");
 		
 		DowloadData();
 		
 		//BlockChain.LoadData();
 		//System.out.println(BlockChain.StringBlockchain());
 		
-		//System.out.println(ValidProof("�������","��ý��Ȣ"));
+		//System.out.println(ValidProof("正大光明","明媒正娶"));
 		
 		
 		/*
 		try{
-			System.out.println("������IP = " + java.net.InetAddress.getLocalHost());
+			System.out.println("本机的IP = " + java.net.InetAddress.getLocalHost());
 		}catch(Exception e){
 			
 		}

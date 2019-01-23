@@ -4,22 +4,22 @@ import java.sql.Timestamp;
 
 public class Block {
 
-	public int iIndex;              //Ë÷Òı
-	public String sProof;           //¹¤×÷Á¿Ö¤Ã÷£¬ÔÚÕâ¸öÀı×ÓÀïÃæ£¬ÆäÊµ¾ÍÊÇÒ»¸ö¾­¹ıÑéÖ¤µÄÕıÈ·µÄ³ÉÓï
-	public String sPreviousHash;    //Ç°Ò»¸öÇø¿éµÄHashÖµ
-	public Timestamp tsCreateTime;  //Çø¿é´´½¨Ê±¼ä´Á
+	public int iIndex;              //ç´¢å¼•
+	public String sProof;           //å·¥ä½œé‡è¯æ˜ï¼Œåœ¨è¿™ä¸ªä¾‹å­é‡Œé¢ï¼Œå…¶å®å°±æ˜¯ä¸€ä¸ªç»è¿‡éªŒè¯çš„æ­£ç¡®çš„æˆè¯­
+	public String sPreviousHash;    //å‰ä¸€ä¸ªåŒºå—çš„Hashå€¼
+	public Timestamp tsCreateTime;  //åŒºå—åˆ›å»ºæ—¶é—´æˆ³
 	
 	
-	/*Êı¾İ¿é
+	/*æ•°æ®å—
 	 * 
-	 * ÓÃ»§Ã¿½ÓÉÏÒ»¸ö³ÉÓï£¬»áµÃµ½ÏµÍ³10ÔªÇ®µÄ½±Àø£¬Í¬Ê±»áÓ®µÃÇ°ÃæÒ»¸öÓÃ»§µÄ2ÔªÇ®
-	 * Êı¾İÇøÍ¬Ê±ĞèÒª¼ÇÂ¼×Ô¼ºµÄÓÃ»§ÃûºÍ»Ø´ğ³öÉÏÒ»¸ö³ÉÓïµÄÓÃ»§Ãû
+	 * ç”¨æˆ·æ¯æ¥ä¸Šä¸€ä¸ªæˆè¯­ï¼Œä¼šå¾—åˆ°ç³»ç»Ÿ10å…ƒé’±çš„å¥–åŠ±ï¼ŒåŒæ—¶ä¼šèµ¢å¾—å‰é¢ä¸€ä¸ªç”¨æˆ·çš„2å…ƒé’±
+	 * æ•°æ®åŒºåŒæ—¶éœ€è¦è®°å½•è‡ªå·±çš„ç”¨æˆ·åå’Œå›ç­”å‡ºä¸Šä¸€ä¸ªæˆè¯­çš„ç”¨æˆ·å
 	 * 
 	 * */
-	public String sSender;           //»Ø´ğ³öÉÏÒ»¸ö³ÉÓïµÄÓÃ»§Ãû
-	public String sRecipient;        //»Ø´ğ³öµ±Ç°Õâ¸ö³ÉÓïµÄÓÃ»§Ãû
-	public final int iMoneyAward=10; //ÏµÍ³½±Àø£¬Êı¶î¹Ì¶¨
-	public final int iMoneyWin=2;    //Ó®È¡½±Àø£¬Êı¶î¹Ì¶¨
+	public String sSender;           //å›ç­”å‡ºä¸Šä¸€ä¸ªæˆè¯­çš„ç”¨æˆ·å
+	public String sRecipient;        //å›ç­”å‡ºå½“å‰è¿™ä¸ªæˆè¯­çš„ç”¨æˆ·å
+	public final int iMoneyAward=10; //ç³»ç»Ÿå¥–åŠ±ï¼Œæ•°é¢å›ºå®š
+	public final int iMoneyWin=2;    //èµ¢å–å¥–åŠ±ï¼Œæ•°é¢å›ºå®š
 	
 	
 	public Block(int index,String proof,String hash,Timestamp createtime,String sender,String recipient){
