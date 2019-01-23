@@ -16,7 +16,7 @@ public class BlockChain {
 	
 	static final ArrayList<String>  IPPre=NetworkInterfaceTool.getLocalIpPre();  //对局域网内的电脑进行扫描，找到最长的链，下载到本地
 	static final String  sDataFileDir="d://blockchain";     //本地存储路径
-	static final String  port="8888";     //项目端口
+	static final String  port=String.valueOf(NetworkInterfaceTool.getServerPort());     //项目端口
 	
 	//共识算法
 	//返回 true 表示当前节点工作可以被认可
