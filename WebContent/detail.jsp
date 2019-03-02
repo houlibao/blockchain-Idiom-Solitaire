@@ -207,6 +207,7 @@ if(request.getParameter("answer")!=null){
 
 <h1>
 欢迎使用区块链成语接龙。 &nbsp;&nbsp;<a href="/blockchain-Idiom-Solitaire/detail.jsp">刷新</a></a><br>
+返回首页请点击<a href="/blockchain-Idiom-Solitaire/index.jsp">首页</a>
 </h1>
 <%
 blockchain.BlockChain.LoadData();
